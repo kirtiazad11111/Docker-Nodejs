@@ -5,6 +5,7 @@
 * A web server (NGINX) that will proxy requests on HTTP and HTTPS to your Ghost service. 
 
 These services are listed in a single Docker Compose file.This guide uses sudo wherever possible.
+![](docker.gif)
 
 ### Install Docker & Docker-Compose
 The instructions assume that you have already installed [Docker](https://docs.docker.com/installation/) and [Docker Compose](https://docs.docker.com/compose/install/). 
