@@ -14,7 +14,7 @@ The instructions assume that you have already installed [Docker](https://docs.do
 1) ##### Clone this project onto your Docker Host.
 
 ```
-git clone https://github.com/kirtiazad11111/Docker-Nodejs.git . 
+git clone https://github.com/kirtiazad11111/Docker-Nodejs.git 
 ```
     
 2) ##### Change the directory 
