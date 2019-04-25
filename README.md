@@ -1,6 +1,8 @@
 ## Docker-Nodejs-ghost
 docker environment using docker-compose for Node.js:ghost
+
 This guide uses sudo wherever possible. Complete the sections of our Securing Your Server guide to create a standard user account, harden SSH access and remove unnecessary network services.
+
 ### Install
 The instructions assume that you have already installed [Docker](https://docs.docker.com/installation/) and [Docker Compose](https://docs.docker.com/compose/install/). 
 
