@@ -1,6 +1,10 @@
 ## Docker-Nodejs-ghost
-docker environment using docker-compose for Node.js:ghost
 
+The Ghost deployment has three components:
+* The Ghost service itself;
+* database (MySQL) that will store your blog posts;
+* A web server (NGINX) that will proxy requests on HTTP and HTTPS to your Ghost service.
+These services are listed in a single Docker Compose file.
 This guide uses sudo wherever possible. Complete the sections of our Securing Your Server guide to create a standard user account, harden SSH access and remove unnecessary network services.
 
 ### Install
@@ -54,7 +58,6 @@ services:
       - "443:443"
     volumes:
        - /opt/ssl/:/etc/ssl/certs/
-       - /usr/share/nginx/html:/usr/share/nginx/html
     networks:
       - app-network
 networks:
@@ -62,14 +65,12 @@ networks:
     driver: bridge
   ```
 * The Docker Compose file creates a few Docker bind mounts:
-    * /var/lib/ghost/content and /var/lib/mysql inside your containers are mapped to /opt/ghost_content and /opt/ghost_mysql on the           Linode. These locations store your Ghost content.
-    * NGINX uses a bind mount for /etc/ssl/ to access your self signed certificate.
-    * NGINX also uses a bind mount for /usr/share/nginx/html so that it can access the Let’s Encrypt challenge files that are created when your certificate is renewed.
+    * `/var/lib/ghost/content` and `/var/lib/mysql` inside your containers are mapped to `/opt/ghost_content` and `/opt/ghost_mysql`. These locations store your Ghost content.
+    * NGINX uses a bind mount for `/etc/ssl/` to access your self signed certificate.
     * Create directories for those bind mounts
     ```
     sudo mkdir /opt/ghost_content
     sudo mkdir /opt/ghost_mysql
-    sudo mkdir -p /usr/share/nginx/html
     sudo mkdir -p /opt/ssl/
     ```
 * Create self sign certificate for Nginx 
@@ -90,11 +91,4 @@ The  docker-compose command will pull the images from Docker Hub and then link t
 
     docker-compose ps
 
-Install GhostPermalink
-The Ghost deployment has three components:
-
-* The Ghost service itself;
-* database (MySQL) that will store your blog posts;
-* A web server (NGINX) that will proxy requests on HTTP and HTTPS to your Ghost service.
-These services are listed in a single Docker Compose file.
 
