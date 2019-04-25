@@ -1,5 +1,4 @@
 ## Docker-Nodejs-ghost
-
 ### The Ghost deployment has three components:
 * The Ghost service
 * Database (MySQL) that will store your blog posts
@@ -66,7 +65,7 @@ networks:
   app-network:
     driver: bridge
   ```
-* The Docker Compose file creates a few Docker bind mounts:
+4) ##### The Docker Compose file creates a few Docker bind mounts:
     * `/var/lib/ghost/content` and `/var/lib/mysql` inside your containers are mapped to `/opt/ghost_content` and `/opt/ghost_mysql`. These locations store your Ghost content.
     * NGINX uses a bind mount for `/etc/ssl/` to access your self signed certificate.
     * Create directories for those bind mounts
@@ -75,22 +74,16 @@ networks:
     sudo mkdir /opt/ghost_mysql
     sudo mkdir -p /opt/ssl/
     ```
-* Create self sign certificate for Nginx 
+5) ##### Create self sign certificate for Nginx 
 ```
 openssl req -subj '/CN=localhost' -x509 -newkey rsa:4096 -nodes -keyout /opt/ssl/key.pem -out /opt/ssl/cert.pem -days 365
 ```
-* ### Create dhparam certificate 
+6) ##### Create dhparam certificate 
 ```
 sudo openssl dhparam -out /opt/ssl/dhparam-2048.pem 2048
 ````
-# How to get up and running
-Once you've cloned the project to your host we can now start our demo project. Easy! Navigate to the directory in which you cloned the project. Run the following commands from this directory 
-    
+7) ##### Run the following commands to start docker-compose.yml
+    `docker-compose up -d`
 
-    docker-compose up -d
-
-The  docker-compose command will pull the images from Docker Hub and then link them together based on the information inside the docker-compose.yml file. This will create ports, links between containers, and configure applications as requrired. After the command completes we can now view the status of our stack
-
-    docker-compose ps
-
-
+8) #####  The  docker-compose command will pull the images from Docker Hub and then link them together based on the information inside the docker-compose.yml file. This will create ports, links between containers, and configure applications as requrired. After the command completes we can now view the status of our stack
+    `docker-compose ps`
