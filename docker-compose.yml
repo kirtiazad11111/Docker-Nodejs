@@ -1,0 +1,45 @@
+version: '3.1'
+services:
+  ghost:
+    image: ghost:1-alpine
+    container_name: ghost
+    restart: always
+    volumes:
+      - /opt/ghost_content:/var/lib/ghost/content
+    environment:
+      database__client: mysql
+      database__connection__host: db
+      database__connection__user: root
+      database__connection__password: example
+      database__connection__database: ghost
+    depends_on:
+      - db
+    networks:
+      - app-network
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+    volumes:
+      - /opt/ghost_mysql:/var/lib/mysql
+    networks:
+      - app-network
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    restart: always
+    depends_on:
+      - ghost
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+       - /opt/ssl/:/etc/ssl/certs/
+       - /usr/share/nginx/html:/usr/share/nginx/html
+    networks:
+      - app-network
+networks:
+  app-network:
+    driver: bridge
