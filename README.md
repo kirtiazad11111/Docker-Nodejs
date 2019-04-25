@@ -2,22 +2,24 @@
 
 ### The Ghost deployment has three components:
 * The Ghost service
-* database (MySQL) that will store your blog posts
+* Database (MySQL) that will store your blog posts
 * A web server (NGINX) that will proxy requests on HTTP and HTTPS to your Ghost service. 
 
-These services are listed in a single Docker Compose file.This guide uses sudo wherever possible. Complete the sections of our Securing Your Server guide to create a standard user account, harden SSH access and remove unnecessary network services.
+These services are listed in a single Docker Compose file.This guide uses sudo wherever possible.
 
-### Install
+### Install Docker & Docker-Compose
 The instructions assume that you have already installed [Docker](https://docs.docker.com/installation/) and [Docker Compose](https://docs.docker.com/compose/install/). 
 
-In order to get started be sure to clone this project onto your Docker Host.
-    
-    git clone https://github.com/kirtiazad11111/Docker-Nodejs.git .
-* #### Change the directory 
+### How to Start Docker-Nodejs-ghost
+1) ##### Clone this project onto your Docker Host.
 
-      cd Docker-Nodesjs
+`git clone https://github.com/kirtiazad11111/Docker-Nodejs.git . `
+    
+2) ##### Change the directory 
+
+     ` cd Docker-Nodesjs`
   
-* #### Update new database password where `your_database_root_password appears` in `docker-compose.yml`. The values for `database__connection__password` and `MYSQL_ROOT_PASSWORD` should be the same:
+3) ##### Update new database password where `your_database_root_password appears` in `docker-compose.yml`. The values for `database__connection__password` and `MYSQL_ROOT_PASSWORD` should be the same:
 ``` yaml
 version: '3.1'
 services:
