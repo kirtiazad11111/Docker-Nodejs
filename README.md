@@ -19,7 +19,7 @@ git clone https://github.com/kirtiazad11111/Docker-Nodejs.git .
 2) ##### Change the directory 
 
 ```
-cd Docker-Nodesjs
+cd Docker-Nodejs
 ```
   
 3) ##### Update new database password where `your_database_root_password appears` in `docker-compose.yml`. The values for `database__connection__password` and `MYSQL_ROOT_PASSWORD` should be the same:
@@ -80,7 +80,7 @@ sudo mkdir -p /opt/ssl/
 ```
 5) ##### Create self sign certificate for Nginx 
 ```
-openssl req -subj '/CN=localhost' -x509 -newkey rsa:4096 -nodes -keyout /opt/ssl/key.pem -out /opt/ssl/cert.pem -days 365
+sudo openssl req -subj '/CN=localhost' -x509 -newkey rsa:4096 -nodes -keyout /opt/ssl/key.pem -out /opt/ssl/cert.pem -days 365
 ```
 6) ##### Create dhparam certificate 
 ```
