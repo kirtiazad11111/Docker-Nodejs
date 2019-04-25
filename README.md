@@ -1,15 +1,83 @@
-# Docker-Nodejs-ghost
-docker environment using docker-compose, with Node.js:ghost
-
+## Docker-Nodejs-ghost
+docker environment using docker-compose for Node.js:ghost
 This guide uses sudo wherever possible. Complete the sections of our Securing Your Server guide to create a standard user account, harden SSH access and remove unnecessary network services.
-
-# Install
+### Install
 The instructions assume that you have already installed [Docker](https://docs.docker.com/installation/) and [Docker Compose](https://docs.docker.com/compose/install/). 
 
-In order to get started be sure to clone this project onto your Docker Host. Create a directory on your host. Please note that the demo webservices will inherit the name from the directory you create. If you create a folder named test. Then the services will all be named test-web, test-redis, test-lb. Also, when you scale your services it will then tack on a number to the end of the service you scale. 
+In order to get started be sure to clone this project onto your Docker Host.
+    
+    git clone https://github.com/kirtiazad11111/Docker-Nodejs.git .
+* #### Change the directory 
 
-    git clone https://github.com/vegasbrianc/docker-compose-demo.git .
-
+      cd Docker-Nodesjs
+  
+* #### Update new database password where `your_database_root_password appears` in `docker-compose.yml`. The values for `database__connection__password` and `MYSQL_ROOT_PASSWORD` should be the same:
+``` yaml
+version: '3.1'
+services:
+  ghost:
+    image: ghost:1-alpine
+    container_name: ghost
+    restart: always
+    volumes:
+      - /opt/ghost_content:/var/lib/ghost/content
+    environment:
+      database__client: mysql
+      database__connection__host: db
+      database__connection__user: root
+      database__connection__password: your_database_root_password
+      database__connection__database: ghost
+    depends_on:
+      - db
+    networks:
+      - app-network
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: your_database_root_password
+    volumes:
+      - /opt/ghost_mysql:/var/lib/mysql
+    networks:
+      - app-network
+  nginx:
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile
+    restart: always
+    depends_on:
+      - ghost
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+       - /opt/ssl/:/etc/ssl/certs/
+       - /usr/share/nginx/html:/usr/share/nginx/html
+    networks:
+      - app-network
+networks:
+  app-network:
+    driver: bridge
+  ```
+* The Docker Compose file creates a few Docker bind mounts:
+    * /var/lib/ghost/content and /var/lib/mysql inside your containers are mapped to /opt/ghost_content and /opt/ghost_mysql on the           Linode. These locations store your Ghost content.
+    * NGINX uses a bind mount for /etc/ssl/ to access your self signed certificate.
+    * NGINX also uses a bind mount for /usr/share/nginx/html so that it can access the Let’s Encrypt challenge files that are created when your certificate is renewed.
+    * Create directories for those bind mounts
+    ```
+    sudo mkdir /opt/ghost_content
+    sudo mkdir /opt/ghost_mysql
+    sudo mkdir -p /usr/share/nginx/html
+    sudo mkdir -p /opt/ssl/
+    ```
+* Create self sign certificate for Nginx 
+```
+openssl req -subj '/CN=localhost' -x509 -newkey rsa:4096 -nodes -keyout /opt/ssl/key.pem -out /opt/ssl/cert.pem -days 365
+```
+* ### Create dhparam certificate 
+```
+sudo openssl dhparam -out /opt/ssl/dhparam-2048.pem 2048
+````
 # How to get up and running
 Once you've cloned the project to your host we can now start our demo project. Easy! Navigate to the directory in which you cloned the project. Run the following commands from this directory 
     
