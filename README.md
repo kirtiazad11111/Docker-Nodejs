@@ -12,11 +12,15 @@ The instructions assume that you have already installed [Docker](https://docs.do
 ### How to Start Docker-Nodejs-ghost
 1) ##### Clone this project onto your Docker Host.
 
-`git clone https://github.com/kirtiazad11111/Docker-Nodejs.git . `
+```
+git clone https://github.com/kirtiazad11111/Docker-Nodejs.git . 
+```
     
 2) ##### Change the directory 
 
-     ` cd Docker-Nodesjs`
+     ```
+     cd Docker-Nodesjs
+     ```
   
 3) ##### Update new database password where `your_database_root_password appears` in `docker-compose.yml`. The values for `database__connection__password` and `MYSQL_ROOT_PASSWORD` should be the same:
 ``` yaml
@@ -83,7 +87,11 @@ openssl req -subj '/CN=localhost' -x509 -newkey rsa:4096 -nodes -keyout /opt/ssl
 sudo openssl dhparam -out /opt/ssl/dhparam-2048.pem 2048
 ````
 7) ##### Run the following commands to start docker-compose.yml
-    `docker-compose up -d`
+    ```
+    docker-compose up -d
+    ```
 
 8) #####  The  docker-compose command will pull the images from Docker Hub and then link them together based on the information inside the docker-compose.yml file. This will create ports, links between containers, and configure applications as requrired. After the command completes we can now view the status of our stack
-    `docker-compose ps`
+    ```
+    docker-compose ps
+    ```
