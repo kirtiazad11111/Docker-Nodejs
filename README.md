@@ -18,9 +18,9 @@ git clone https://github.com/kirtiazad11111/Docker-Nodejs.git .
     
 2) ##### Change the directory 
 
-     ```
-     cd Docker-Nodesjs
-     ```
+```
+cd Docker-Nodesjs
+```
   
 3) ##### Update new database password where `your_database_root_password appears` in `docker-compose.yml`. The values for `database__connection__password` and `MYSQL_ROOT_PASSWORD` should be the same:
 ``` yaml
@@ -73,11 +73,11 @@ networks:
     * `/var/lib/ghost/content` and `/var/lib/mysql` inside your containers are mapped to `/opt/ghost_content` and `/opt/ghost_mysql`. These locations store your Ghost content.
     * NGINX uses a bind mount for `/etc/ssl/` to access your self signed certificate.
     * Create directories for those bind mounts
-    ```
-    sudo mkdir /opt/ghost_content
-    sudo mkdir /opt/ghost_mysql
-    sudo mkdir -p /opt/ssl/
-    ```
+```
+sudo mkdir /opt/ghost_content
+sudo mkdir /opt/ghost_mysql
+sudo mkdir -p /opt/ssl/
+```
 5) ##### Create self sign certificate for Nginx 
 ```
 openssl req -subj '/CN=localhost' -x509 -newkey rsa:4096 -nodes -keyout /opt/ssl/key.pem -out /opt/ssl/cert.pem -days 365
@@ -87,11 +87,11 @@ openssl req -subj '/CN=localhost' -x509 -newkey rsa:4096 -nodes -keyout /opt/ssl
 sudo openssl dhparam -out /opt/ssl/dhparam-2048.pem 2048
 ````
 7) ##### Run the following commands to start docker-compose.yml
-    ```
-    docker-compose up -d
-    ```
+```
+docker-compose up -d
+```
 
 8) #####  The  docker-compose command will pull the images from Docker Hub and then link them together based on the information inside the docker-compose.yml file. This will create ports, links between containers, and configure applications as requrired. After the command completes we can now view the status of our stack
-    ```
-    docker-compose ps
-    ```
+```
+docker-compose ps
+```
