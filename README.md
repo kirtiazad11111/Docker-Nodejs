@@ -1,11 +1,11 @@
 ## Docker-Nodejs-ghost
 
-The Ghost deployment has three components:
-* The Ghost service itself;
-* database (MySQL) that will store your blog posts;
-* A web server (NGINX) that will proxy requests on HTTP and HTTPS to your Ghost service.
-These services are listed in a single Docker Compose file.
-This guide uses sudo wherever possible. Complete the sections of our Securing Your Server guide to create a standard user account, harden SSH access and remove unnecessary network services.
+### The Ghost deployment has three components:
+* The Ghost service
+* database (MySQL) that will store your blog posts
+* A web server (NGINX) that will proxy requests on HTTP and HTTPS to your Ghost service. 
+
+These services are listed in a single Docker Compose file.This guide uses sudo wherever possible. Complete the sections of our Securing Your Server guide to create a standard user account, harden SSH access and remove unnecessary network services.
 
 ### Install
 The instructions assume that you have already installed [Docker](https://docs.docker.com/installation/) and [Docker Compose](https://docs.docker.com/compose/install/). 
